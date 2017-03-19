@@ -2,6 +2,8 @@ import os
 import json
 import time
 
+print(os.environ.keys())
+
 # All data to be returned to the client gets put into this dict
 returnData = {
     #HTTP Status Code:

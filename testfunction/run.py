@@ -1,8 +1,6 @@
 import os
 import json
 
-print(os.environ)
-
 # All data to be returned to the client gets put into this dict
 returnData = {
     #HTTP Status Code:

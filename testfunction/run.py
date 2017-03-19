@@ -1,5 +1,8 @@
 import os
 import json
+import time
+
+time.sleep(60*6)
 
 # All data to be returned to the client gets put into this dict
 returnData = {

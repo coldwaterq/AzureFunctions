@@ -21,7 +21,7 @@
     
     // Array of functions to load. Only functions in this list will be enabled.
     // If not specified, all functions are enabled.
-    "functions": [ "testfunction" ],
+    "functions": [ "x" ],
     
     // Configuration settings for 'queue' triggers. (Optional)
     //"queues": {

@@ -2,7 +2,20 @@ import os
 import json
 import time
 
-print(os.environ.keys())
+postData = open(os.environ['req'], "r").read()
+headers = {}
+query = {}
+
+for key in os.environ.keys():
+    if(key.startswith('REQ_HEADERS_')):
+        headers[key] = os.environ[key]
+    elif(key.startswith('REQ_QUERY_')):
+        query[key] = os.environ[key]
+        
+print(query)
+print(headers)
+print(postData)
+        
 
 # All data to be returned to the client gets put into this dict
 returnData = {

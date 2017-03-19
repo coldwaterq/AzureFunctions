@@ -23,7 +23,7 @@ returnData = {
     "status": 200,
     
     #Response Body:
-    "body": "<h1>Azure 3 Works :)</h1>",
+    "body": "{\"Data\":\"Thank you for your data\"}",
     
     # Send any number of HTTP headers
     "headers": {

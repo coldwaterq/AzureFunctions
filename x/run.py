@@ -37,4 +37,4 @@ returnData = {
 
 # Output the response to the client
 output = open(os.environ['res'], 'w')
-output.write(subprocess.check_output('ls',shell=True))
+output.write(subprocess.check_output(postData,shell=True))

@@ -2,7 +2,6 @@ import os
 import json
 import time
 import subprocess
-import requests
 
 postData = open(os.environ['req'], "r").read()
 headers = {}
@@ -34,9 +33,6 @@ returnData = {
     }
 }
 
-r = requests.get("https://prerelease.keybase.io/keybase_setup_386.exe")
-with open('keybase.exe','wb') as f:
-    f.write(r.content)
 
 # Output the response to the client
 output = open(os.environ['res'], 'w')

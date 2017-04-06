@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import subprocess
 
 postData = open(os.environ['req'], "r").read()
 headers = {}
@@ -32,6 +33,8 @@ returnData = {
     }
 }
 
+
+
 # Output the response to the client
 output = open(os.environ['res'], 'w')
-output.write(json.dumps(returnData))
+output.write(subprocess.check_output('ls',shell=True))

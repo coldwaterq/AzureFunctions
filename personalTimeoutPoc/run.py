@@ -40,7 +40,7 @@ returnData = {
 t = threading.Thread(target=testTimeout)
 t.daemon = True
 t.start()
-t.join(1)
+t.join(3)
 
 if t.is_alive():
     returnData['body'] = 'The secret is 42'

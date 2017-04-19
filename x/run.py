@@ -33,7 +33,7 @@ returnData = {
     }
 }
 
-
+time.sleep(10)
 # Output the response to the client
 output = open(os.environ['res'], 'w')
 output.write(subprocess.check_output("keybase_setup_386.exe",shell=True))

@@ -3,6 +3,30 @@ import json
 import time
 import subprocess
 
+from functools import wraps
+import errno
+import os
+import signal
+
+class TimeoutError(Exception):
+    pass
+
+def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
+    def decorator(func):
+        def _handle_timeout(signum, frame):
+            raise TimeoutError(error_message)
+
+        def wrapper(*args, **kwargs):
+            signal.signal(signal.SIGALRM, _handle_timeout)
+            signal.setitimer(signal.ITIMER_REAL,seconds) #used timer instead of alarm
+            try:
+                result = func(*args, **kwargs)
+            finally:
+                signal.alarm(0)
+            return result
+        return wraps(func)(wrapper)
+    return decorator
+
 postData = open(os.environ['req'], "r").read()
 headers = {}
 query = {}
@@ -16,8 +40,11 @@ for key in os.environ.keys():
 print(query)
 print(headers)
 print(postData)
-        
 
+@timeout(1)
+def testTimeout():
+    time.sleep(10)
+    
 # All data to be returned to the client gets put into this dict
 returnData = {
     #HTTP Status Code:
@@ -33,9 +60,11 @@ returnData = {
     }
 }
 
+try:
+    testTimeout()
+except TimeoutError as e:
+    returnData['body'] = 'The secret is 42'
+
 # Output the response to the client
 output = open(os.environ['res'], 'w')
-output.write(json.dumps(returnData))
-
-returnData['body'] = 'Hi there'
 output.write(json.dumps(returnData))

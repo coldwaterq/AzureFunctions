@@ -19,6 +19,8 @@ print(headers)
 print(postData)
 
 def testTimeout():
+    print(query)
+    print(os.environ('REQ_QUERY_SLEEP'))
     sleep = int(query['SLEEP'])
     time.sleep(sleep)
     

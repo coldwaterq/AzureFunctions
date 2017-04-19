@@ -36,7 +36,9 @@ returnData = {
     }
 }
 
-t = threading.Thread(target=testTimeout,daemon=True) 
+t = threading.Thread(target=testTimeout)
+t.daemon = True
+t.start()
 t.join(1)
 
 if t.is_alive():

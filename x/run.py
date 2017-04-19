@@ -19,7 +19,7 @@ print(headers)
 print(postData)
 
 def testTimeout():
-    time.sleep(10)
+    time.sleep(.1)
     
 # All data to be returned to the client gets put into this dict
 returnData = {

@@ -10,9 +10,9 @@ query = {}
 
 for key in os.environ.keys():
     if(key.startswith('REQ_HEADERS_')):
-        headers[key] = os.environ[key]
+        headers[key[12:].lower()] = os.environ[key]
     elif(key.startswith('REQ_QUERY_')):
-        query[key] = os.environ[key]
+        query[key[10:].lower()] = os.environ[key]
         
 print(query)
 print(headers)

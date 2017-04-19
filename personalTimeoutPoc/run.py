@@ -19,7 +19,7 @@ print(headers)
 print(postData)
 
 def testTimeout():
-    sleep = int(query['sleep'])
+    sleep = int(query['SLEEP'])
     time.sleep(sleep)
     
 # All data to be returned to the client gets put into this dict

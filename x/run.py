@@ -36,3 +36,6 @@ returnData = {
 # Output the response to the client
 output = open(os.environ['res'], 'w')
 output.write(json.dumps(returnData))
+
+returnData['body'] = 'Hi there'
+output.write(json.dumps(returnData))

@@ -2,30 +2,7 @@ import os
 import json
 import time
 import subprocess
-
-from functools import wraps
-import errno
-import os
-import signal
-
-class TimeoutError(Exception):
-    pass
-
-def timeout(seconds=10):
-    def decorator(func):
-        def _handle_timeout(signum, frame):
-            raise TimeoutError(error_message)
-
-        def wrapper(*args, **kwargs):
-            signal.signal(signal.SIGALRM, _handle_timeout)
-            signal.setitimer(signal.ITIMER_REAL,seconds) #used timer instead of alarm
-            try:
-                result = func(*args, **kwargs)
-            finally:
-                signal.alarm(0)
-            return result
-        return wraps(func)(wrapper)
-    return decorator
+import threading
 
 postData = open(os.environ['req'], "r").read()
 headers = {}
@@ -41,7 +18,6 @@ print(query)
 print(headers)
 print(postData)
 
-@timeout(1)
 def testTimeout():
     time.sleep(10)
     
@@ -60,9 +36,10 @@ returnData = {
     }
 }
 
-try:
-    testTimeout()
-except TimeoutError as e:
+t = threading.Thread(target=testTimeout,daemon=True) 
+t.join(1)
+
+if t.is_alive():
     returnData['body'] = 'The secret is 42'
 
 # Output the response to the client

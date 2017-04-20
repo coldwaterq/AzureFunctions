@@ -29,7 +29,7 @@ def writeResponse(status=200, body='', headers={"Content-Type": "text/html"}):
         "headers": headers
     }
     output = open(os.environ['res'], 'w')
-	output.write(json.dumps(returnData))
+    output.write(json.dumps(returnData))
             
 def timeout(function, t):
 	t = threading.Thread(target=function)

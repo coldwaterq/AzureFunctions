@@ -5,7 +5,7 @@ import json
 import threading
 
 def getRequest():
-    request = collections.namedtupple('request','postData headers query')
+    request = collections.namedtuple('request','postData headers query')
     request.postData = open(os.environ['req'], "r").read()
     request.headers = {}
     request.query = {}

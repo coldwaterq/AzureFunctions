@@ -32,10 +32,10 @@ def writeResponse(status=200, body='', headers={"Content-Type": "text/html"}):
     output.write(json.dumps(returnData))
             
 def timeout(function, t):
-	t = threading.Thread(target=function)
-	t.daemon = True
-	t.start()
-	t.join(t)
-	if t.is_alive():
+	thread = threading.Thread(target=function)
+	thread.daemon = True
+	thread.start()
+	thread.join(t)
+	if thread.is_alive():
 		return True
 	return False

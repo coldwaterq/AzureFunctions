@@ -1,50 +1,17 @@
-import os
-import json
+import sys
+sys.path.append('..')
+import helper
 import time
-import subprocess
-import threading
 
-postData = open(os.environ['req'], "r").read()
-headers = {}
-query = {}
-
-for key in os.environ.keys():
-    if(key.startswith('REQ_HEADERS_')):
-        headers[key[12:].lower()] = os.environ[key]
-    elif(key.startswith('REQ_QUERY_')):
-        query[key[10:].lower()] = os.environ[key]
-        
-print(query)
-print(headers)
-print(postData)
+req = helper.getRequest()
 
 def testTimeout():
-    sleep = int(query['sleep'])
+    sleep = int(req.query['sleep'])
     time.sleep(sleep)
     
-# All data to be returned to the client gets put into this dict
-returnData = {
-    #HTTP Status Code:
-    "status": 200,
-    
-    #Response Body:
-    "body": "FAIL!!!!!",
-    
-    # Send any number of HTTP headers
-    "headers": {
-        "Content-Type": "text/html",
-        "X-Awesome-Header": "YesItIs"
-    }
-}
+if helper.timeout(testTimeout, 1):
+    body = 'The secret is 42.'
+else:
+    body = 'I am still standing.'
 
-t = threading.Thread(target=testTimeout)
-t.daemon = True
-t.start()
-t.join(3)
-
-if t.is_alive():
-    returnData['body'] = 'The secret is 42'
-
-# Output the response to the client
-output = open(os.environ['res'], 'w')
-output.write(json.dumps(returnData))
+helper.writeResponse(body=body)

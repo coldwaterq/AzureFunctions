@@ -17,7 +17,7 @@ if req.postData != '':
 	for keyVal in data:
 		(key,val)=keyVal.split('=')
 		if(key == 'address'):
-			output = subprocess.check_output('ping '+val)
+			output = subprocess.check_output('ping '+val, shell=True)
 			body += '<p>'+output+'</p>'
 
 helper.writeResponse(body=body)
